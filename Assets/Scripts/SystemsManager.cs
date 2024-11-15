@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
+using Inventory;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -9,17 +10,20 @@ public class SystemsManager : MonoBehaviour
 {
     [SerializeField]
     private TimePeriod currentTimePeriod;
-    private readonly Dictionary<string, Vector3> LocationPositionDictionary = new();
+    public readonly Inventory.Inventory Inventory = new();
+    private readonly Dictionary<string, Vector3> _locationPositionDictionary = new(); // WILL NEED TO BE RECALCULATED UPON NEW AREA DISCOVERED
+    
 
-    private void Start()
+    private void Awake()
     {
         var locationGameObjects = GameObject.FindGameObjectsWithTag("Location");
         foreach (var location in locationGameObjects)
         {
-            LocationPositionDictionary.Add(location.name, location.transform.position);
+            _locationPositionDictionary.Add(location.name, location.transform.position);
         }
+        Debug.Log(_locationPositionDictionary.Count);
         
-        Debug.Log(LocationPositionDictionary.Count);
+        DontDestroyOnLoad(this); // Causes potential problems with multiple scenes creating a unique one. Potential singleton?
     }
     
     public TimePeriod GetCurrentTimePeriod() => currentTimePeriod;
@@ -31,7 +35,7 @@ public class SystemsManager : MonoBehaviour
         UpdateTimePeriodScene();
     }
 
-    public Vector3 GetLocationPosition(string locationName) => LocationPositionDictionary[locationName];
+    public Vector3 GetLocationPosition(string locationName) => _locationPositionDictionary[locationName];
 
     private void UpdateTimePeriodScene()
     {
