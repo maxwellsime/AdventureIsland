@@ -1,10 +1,15 @@
 using System.Collections.Generic;
+using System.Diagnostics;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
 
 public class SystemsManager : MonoBehaviour
 {
+    [SerializeField]
+    private TimePeriod currentTimePeriod;
     private readonly Dictionary<string, Vector3> LocationPositionDictionary = new();
-    private TimePeriod _currentTimePeriod;
 
     private void Start()
     {
@@ -13,19 +18,39 @@ public class SystemsManager : MonoBehaviour
         {
             LocationPositionDictionary.Add(location.name, location.transform.position);
         }
-
-        _currentTimePeriod = TimePeriod.Morning;
+        
+        Debug.Log(LocationPositionDictionary.Count);
     }
     
-    public TimePeriod GetCurrentTimePeriod() => _currentTimePeriod;
+    public TimePeriod GetCurrentTimePeriod() => currentTimePeriod;
 
-    public void ChangeTimePeriod()
+    public void ForwardTimePeriod()
     {
-        var newTimePeriodInt = (int)_currentTimePeriod + 1;
-        _currentTimePeriod = newTimePeriodInt > 3 ? TimePeriod.Morning : (TimePeriod)newTimePeriodInt;
+        var newTimePeriodInt = (int)currentTimePeriod + 1;
+        currentTimePeriod = newTimePeriodInt > 3 ? TimePeriod.Morning : (TimePeriod)newTimePeriodInt;
+        UpdateTimePeriodScene();
     }
 
     public Vector3 GetLocationPosition(string locationName) => LocationPositionDictionary[locationName];
+
+    private void UpdateTimePeriodScene()
+    {
+        switch((int)currentTimePeriod)
+        {
+            case 0: 
+                SceneManager.LoadScene("OverworldMorning");
+                break;
+            case 1: 
+                //SceneManager.LoadScene("OverworldMorning");
+                break;            
+            case 2: 
+                SceneManager.LoadScene("OverworldNight");
+                break;
+            case 3: 
+                //SceneManager.LoadScene("OverworldNight");
+                break;
+        }   
+    }
 }
 
 public enum TimePeriod
@@ -33,5 +58,5 @@ public enum TimePeriod
     Morning,
     Midday,
     Afternoon, 
-    Evening
+    Night
 }
