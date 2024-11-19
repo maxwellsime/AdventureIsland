@@ -1,5 +1,10 @@
-*
-!Assets
-!*/Scripts/
-!*/Scripts/Inventory
+*.*
+Library
+Logs
+obj
+Packages
+ProjectSettings
+Temp
+UserSettings
 !*.cs
+!README.md
