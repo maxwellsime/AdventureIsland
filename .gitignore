@@ -8,3 +8,5 @@ Temp
 UserSettings
 !*.cs
 !README.md
+!*.uxml
+!*.uss

@@ -1,0 +1,32 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/UI/UIStyling.uss?fileID=7433441132597879392&amp;guid=5ebb661abc81cb148b05db25a61b6d2e&amp;type=3#UIStyling" />
+    <ui:VisualElement name="NovelUI" style="flex-grow: 1; width: 100%; height: 100%;">
+        <ui:VisualElement name="UpperRow" style="flex-grow: 1; height: 60%; width: 100%;">
+            <ui:VisualElement name="TimeDialRow" style="flex-grow: 1; height: 15%; width: 100%; position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
+                <ui:VisualElement name="TimeDial" style="flex-grow: 1; width: 5%; height: 100%; position: relative; top: auto; left: auto; align-items: center; align-self: center; background-image: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=8228938214290033325&amp;guid=06e4e154ae4eb194f911d026cc6ec405&amp;type=3#console.erroricon&quot;);" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="LowerRow" style="flex-grow: 1; align-items: center; justify-content: center; align-self: center; height: 40%; width: 80%; opacity: 1; -unity-background-image-tint-color: rgb(255, 0, 0); background-color: rgb(255, 0, 0); flex-wrap: nowrap; flex-direction: column; overflow: visible; visibility: visible; padding-bottom: 0;">
+            <ui:VisualElement name="TopRow" style="flex-grow: 1; width: 100%; height: 10%; -unity-font: url(&quot;project://database/Assets/UI%20Toolkit/Super%20Cereal.ttf?fileID=12800000&amp;guid=2fd7d01fefa2dcf4f88ce7a27f164403&amp;type=3#Super Cereal&quot;); font-size: 50%; padding-bottom: 0; -unity-text-align: upper-left; padding-top: 0; margin-bottom: 0.25%; -unity-font-style: bold;">
+                <ui:Label tabindex="-1" text="SPEAKER" parse-escape-sequences="true" display-tooltip-when-elided="true" name="Speaker" style="padding-left: 0; -unity-font: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&amp;guid=06e4e154ae4eb194f911d026cc6ec405&amp;type=3#NotInter-Regular&quot;); align-items: center; align-self: flex-start; padding-top: 0; padding-right: 0; padding-bottom: 0; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; justify-content: flex-start; flex-direction: column;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="PrimaryRow" style="flex-grow: 1; width: 100%; height: 85%; background-color: rgba(255, 0, 246, 0.38); position: relative; align-self: center; align-items: center;">
+                <ui:VisualElement name="QuestLogBox" class="PrimaryRowBox" />
+                <ui:VisualElement name="StatsBox" class="PrimaryRowBox" />
+                <ui:VisualElement name="InventoryBox" class="PrimaryRowBox" />
+                <ui:VisualElement name="DialogueBox" class="PrimaryRowBox"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="ButtonRow" style="flex-grow: 1; align-items: center; width: 100%; height: 15%; justify-content: center; align-self: center; flex-direction: row; flex-basis: auto;">
+                <ui:VisualElement name="ButtonCol" style="flex-grow: 1; width: 33%; height: 100%;">
+                    <ui:Button text="Stats" parse-escape-sequences="true" display-tooltip-when-elided="true" name="StatsButton" class="ButtonRowButton" />
+                </ui:VisualElement>
+                <ui:VisualElement name="ButtonCol" style="flex-grow: 1; width: 33%; height: 100%;">
+                    <ui:Button text="Inventory" parse-escape-sequences="true" display-tooltip-when-elided="true" name="InventoryButton" class="ButtonRowButton" />
+                </ui:VisualElement>
+                <ui:VisualElement name="ButtonCol" style="flex-grow: 1; width: 33%; height: 100%;">
+                    <ui:Button text="QuestLog" parse-escape-sequences="true" display-tooltip-when-elided="true" name="QuestLogButton" class="ButtonRowButton" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
