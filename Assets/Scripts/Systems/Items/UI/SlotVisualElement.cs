@@ -1,4 +1,5 @@
 using Inventory;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI
@@ -15,8 +16,10 @@ namespace UI
 
         public void Set(ItemScriptableObject item)
         {
+            Debug.Log($"InventorySlot Set with: {item.name ?? "null"}");
             Item = item;
-            Icon.sprite = item.icon;
+            Icon.image = item.icon.texture;
+            Add(Icon);
         }
 
         public void Remove()

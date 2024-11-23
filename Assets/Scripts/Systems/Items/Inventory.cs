@@ -1,27 +1,28 @@
 using System.Collections.Generic;
 using Inventory;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Systems.Inventory
 {
-    public class Inventory : IItemContainer
+    public class Inventory : MonoBehaviour, IItemContainer
     {
-        public List<ItemScriptableObject> Items = new();
+        [SerializeField] public List<ItemScriptableObject> items;
         
         public void AddItem(ItemScriptableObject item, int quantity = 1)
         {
-            var itemIndex = Items.FindIndex(i => i.name == item.name);
+            var itemIndex = items.FindIndex(i => i.name == item.name);
 
             if (itemIndex == -1)
             {
-                Items.Add(item);
+                items.Add(item);
                 Debug.Log($"Item {item.name} added to Inventory.");
             }
             else
             {
-                var updatedItem = Items[itemIndex];
+                var updatedItem = items[itemIndex];
                 updatedItem.quantity += quantity;
-                Items[itemIndex] = updatedItem;
+                items[itemIndex] = updatedItem;
                 Debug.Log($"Item {item.name} added to Inventory with quantity {updatedItem.quantity}.");
             }
         }
@@ -31,7 +32,7 @@ namespace Systems.Inventory
         public bool RemoveItem(ItemScriptableObject item, int quantity = 1)
         {
             if (!HasItem(item)) return false;
-            var itemToRemove = Items.Find(i => i.id == item.id);
+            var itemToRemove = items.Find(i => i.id == item.id);
                 
             if (itemToRemove.quantity > quantity)
             {
@@ -39,7 +40,7 @@ namespace Systems.Inventory
             } 
             else if (itemToRemove.quantity == quantity)
             {
-                Items.Remove(itemToRemove);
+                items.Remove(itemToRemove);
             }
             
             return false;
@@ -50,6 +51,6 @@ namespace Systems.Inventory
             // Don't need this until UI implementation
         }
 
-        public bool HasItem(ItemScriptableObject item) => Items.Exists(i => i.id == item.id);
+        public bool HasItem(ItemScriptableObject item) => items.Exists(i => i.id == item.id);
     }
 }

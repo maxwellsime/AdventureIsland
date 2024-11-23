@@ -6,16 +6,16 @@ namespace Inventory
     public class ItemInteractable : MonoBehaviour
     {
         public ItemScriptableObject itemScriptableObject;
-        private SystemsManager _systemsManager;
+        private InventoryController _inventoryController;
 
         private void Start()
         {
-            _systemsManager = GameObject.Find("SystemsManager").GetComponent<SystemsManager>();
+            _inventoryController = GameObject.Find("SystemsManager").GetComponent<InventoryController>();
         }
 
         private void OnMouseDown()
         {
-            _systemsManager.Inventory.AddItem(itemScriptableObject);
+            _inventoryController._inventory.AddItem(itemScriptableObject);
         }
     }
 }

@@ -11,19 +11,20 @@ namespace UI
         protected VisualElement root;
         protected VisualElement container;
 
-        public IEnumerator InitializeView(int size = 20)
+        public void InitializeView(int size = 20)
         {
             slots = new InventorySlot[size];
+            Debug.Log($"Slots initialized as {slots.Length}");
             root = document.rootVisualElement;
             container = root.Q("InventoryBox");
 
-            for (int i = 0; i < size; i++)
+            for (var i = 0; i < size; i++)
             {
+                Debug.Log("New Slot");
                 var slot = new InventorySlot();
                 container.Add(slot);
+                slots[i] = slot;
             }
-
-            yield return null;
         }
     }
 }
