@@ -47,11 +47,10 @@
     padding-bottom: 0.5%;
     padding-left: 1%;
     color: rgb(255, 255, 255);
-    -unity-font-definition: url("project://database/Assets/UI%20Toolkit/Super%20Cereal.ttf?fileID=12800000&guid=2fd7d01fefa2dcf4f88ce7a27f164403&type=3#Super Cereal");
     font-size: 20px;
     align-self: auto;
-    justify-content: center;
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start;
     align-content: auto;
     border-left-color: rgb(255, 255, 255);
     border-right-color: rgb(255, 255, 255);
@@ -68,4 +67,42 @@
     background-color: rgba(0, 0, 0, 0.27);
     visibility: visible;
     display: none;
+}
+
+.DialogueBox {
+    align-items: center;
+    justify-content: center;
+}
+
+.InventoryBox {
+    align-self: center;
+    align-content: center;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.InventorySlot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    align-items: flex-start;
+    align-self: flex-start;
+    width: 60px;
+    height: 60px;
+    margin: 4px;
+}
+
+.InventorySlotImage {
+    flex-grow: 1;
+}
+
+.InventorySlotAmount {
+    position: absolute;
+    color: white;
+    bottom: 0;
+    right: 0;
+    font-size: 18px;
 }

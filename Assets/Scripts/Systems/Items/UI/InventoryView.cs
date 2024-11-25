@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI
 {
@@ -20,9 +21,7 @@ namespace UI
 
             for (var i = 0; i < size; i++)
             {
-                Debug.Log("New Slot");
-                var slot = new InventorySlot();
-                container.Add(slot);
+                var slot = container.CreateChild<InventorySlot>("InventorySlot");
                 slots[i] = slot;
             }
         }

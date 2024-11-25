@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Linq;
 using Inventory;
 using UI;
 using UnityEngine;
@@ -18,20 +19,16 @@ namespace Controllers
             _view.InitializeView();
         }
 
-        private void OnUpdate()
+        private void Update()
         {
             RefreshView();
         } 
 
         private void RefreshView()
         {
-            var count = 0;
-            foreach (var item in _inventory.items) {
-                if(item == null) Debug.Log("ITEM NULL");
-                var slot = _view.slots[0];
-                if(slot == null) Debug.Log("SLOT NULL");
-                _view.slots[count].Set(item);
-                count++;
+            for (var i = 0; i < _inventory.items.Count; i++)
+            {
+                _view.slots[i].Set(_inventory.items.First());
             }
         }
     }

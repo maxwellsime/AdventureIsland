@@ -14,7 +14,7 @@
                 <ui:VisualElement name="QuestLogBox" enabled="true" class="PrimaryRowElement" />
                 <ui:VisualElement name="StatsBox" enabled="true" class="PrimaryRowElement" />
                 <ui:VisualElement name="InventoryBox" enabled="true" class="PrimaryRowElement" />
-                <ui:VisualElement name="DialogueBox" enabled="true" class="PrimaryRowElement" style="background-color: rgba(0, 0, 0, 0); visibility: visible;">
+                <ui:VisualElement name="DialogueBox" enabled="true" class="PrimaryRowElement DialogueBox" style="background-color: rgba(0, 0, 0, 0); visibility: visible;">
                     <ui:Label name="DialogueText" text="You wake up on the sand, delirious. &#10;Your head pounds as the scorching sun roasts your skin." parse-escape-sequences="true" enabled="true" class="PrimaryRowText" style="align-items: center; -unity-text-align: upper-center;" />
                 </ui:VisualElement>
             </ui:VisualElement>
