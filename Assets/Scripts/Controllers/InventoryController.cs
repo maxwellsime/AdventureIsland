@@ -17,19 +17,25 @@ namespace Controllers
         private void OnEnable()
         {
             _view.InitializeView();
+            _view.OnDrop += OnDropEvent;
+            RefreshView();
         }
 
         private void Update()
         {
-            RefreshView();
+            //RefreshView();
         } 
 
         private void RefreshView()
         {
             for (var i = 0; i < _inventory.items.Count; i++)
             {
-                _view.slots[i].Set(_inventory.items[i]);
+                _view.Slots[i].Set(_inventory.items[i]);
             }
+        }
+
+        private void OnDropEvent(InventorySlot originalSlot, InventorySlot closestSlot)
+        {
         }
     }
 }
