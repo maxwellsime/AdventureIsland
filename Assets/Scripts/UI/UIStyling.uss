@@ -36,35 +36,36 @@
     padding: 0.5% 1%;
     color: rgb(255, 255, 255);
     font-size: 20px;
-    align-self: auto;
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: auto;
     border-color: rgb(255, 255, 255);
     border-width: 1px;
     border-radius: 0;
-    background-color: rgba(0, 0, 0, 0.27);
+    background-color: rgba(0, 0, 0, 0.8);
     visibility: visible;
     display: none;
 }
 
-.DialogueBox {
+#QuestLogBox {
+    
+}
+
+#DialogueBox {
     align-items: center;
     justify-content: center;
 }
 
-.InventoryBox {
-    align-self: center;
-    align-content: center;
-    align-items: flex-start;
-    justify-content: flex-start;
+#InventoryBox {
+    flex-grow: 1;
     flex-shrink: 0;
     flex-direction: row;
     flex-wrap: wrap;
+    align-self: center;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .InventorySlot {
-    position: absolute;
+    position: relative;
     top: 0;
     left: 0;
     align-items: flex-start;
@@ -72,6 +73,9 @@
     width: 60px;
     height: 60px;
     margin: 4px;
+    border-color: rgb(255, 255, 255);
+    border-width: 1px;
+    border-radius: 0;
 }
 
 .InventorySlotImage {

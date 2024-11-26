@@ -28,7 +28,7 @@ namespace Controllers
         {
             for (var i = 0; i < _inventory.items.Count; i++)
             {
-                _view.slots[i].Set(_inventory.items.First());
+                _view.slots[i].Set(_inventory.items[i]);
             }
         }
     }
