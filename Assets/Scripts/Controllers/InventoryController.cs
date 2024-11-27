@@ -21,21 +21,18 @@ namespace Controllers
             RefreshView();
         }
 
-        private void Update()
-        {
-            //RefreshView();
-        } 
-
         private void RefreshView()
         {
             for (var i = 0; i < _inventory.items.Count; i++)
             {
-                _view.Slots[i].Set(_inventory.items[i]);
+                _view.Slots[i].Set(i, _inventory.items[i]);
             }
         }
 
         private void OnDropEvent(InventorySlot originalSlot, InventorySlot closestSlot)
         {
+            _inventory.Swap(originalSlot.Index, closestSlot.Index);
+            RefreshView();
         }
     }
 }

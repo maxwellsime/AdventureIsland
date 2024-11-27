@@ -46,10 +46,8 @@ namespace Systems.Inventory
             return false;
         }
         
-        public void Swap(int indexOne, int indexTwo)
-        {
-            // Don't need this until UI implementation
-        }
+        public void Swap(int indexOne, int indexTwo) =>
+            (items[indexOne], items[indexTwo]) = (items[indexTwo], items[indexOne]);
 
         public bool HasItem(ItemScriptableObject item) => items.Exists(i => i.id == item.id);
     }

@@ -8,6 +8,7 @@ namespace UI
 {
     public class InventorySlot : VisualElement
     {
+        public int Index;
         public ItemScriptableObject Item; // use for tooltip parameter
         public Image Icon;
         public Label AmountLabel;
@@ -29,9 +30,9 @@ namespace UI
             evt.StopPropagation();
         } 
 
-        public void Set(ItemScriptableObject item)
+        public void Set(int index, ItemScriptableObject item)
         {
-            //Debug.Log($"InventorySlot Set with: {item.name}");
+            Index = index;
             Item = item;
             Icon.image = item.icon.texture;
             AmountLabel.text = item.quantity > 1 ? item.quantity.ToString() : string.Empty;
