@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Inventory;
 using UnityEngine;
@@ -8,6 +9,8 @@ namespace Systems.Inventory
     public class Inventory : MonoBehaviour, IItemContainer
     {
         [SerializeField] public List<ItemScriptableObject> items;
+
+        public event Action InventoryChange;
         
         public void AddItem(ItemScriptableObject item, int quantity = 1)
         {
@@ -25,6 +28,8 @@ namespace Systems.Inventory
                 items[itemIndex] = updatedItem;
                 Debug.Log($"Item {item.name} added to Inventory with quantity {updatedItem.quantity}.");
             }
+            
+            InventoryChange?.Invoke();
         }
 
         /* Returns true if item is removed by that quantity
@@ -42,6 +47,8 @@ namespace Systems.Inventory
             {
                 items.Remove(itemToRemove);
             }
+            
+            InventoryChange?.Invoke();
             
             return false;
         }
