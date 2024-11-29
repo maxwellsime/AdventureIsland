@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
 
-namespace UI
+namespace Inventory.Views
 {
     public class InventoryView : MonoBehaviour
     {

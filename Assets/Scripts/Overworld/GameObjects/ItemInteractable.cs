@@ -1,7 +1,9 @@
-using Controllers;
+using Inventory;
+using Inventory.Controllers;
+using Inventory.Models;
 using UnityEngine;
 
-namespace Inventory
+namespace Overworld.GameObjects
 {
     public class ItemInteractable : MonoBehaviour
     {

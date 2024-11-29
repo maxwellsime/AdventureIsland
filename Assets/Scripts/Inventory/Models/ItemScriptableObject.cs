@@ -1,7 +1,7 @@
 using System.Text;
 using UnityEngine;
 
-namespace Inventory
+namespace Inventory.Models
 {
     [CreateAssetMenu(fileName = "Item", menuName = "Inventory/Item")]
     public class ItemScriptableObject : ScriptableObject

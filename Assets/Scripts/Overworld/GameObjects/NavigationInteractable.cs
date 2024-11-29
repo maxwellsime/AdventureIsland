@@ -1,7 +1,6 @@
-using Controllers;
 using UnityEngine;
 
-namespace UI
+namespace Overworld.GameObjects
 {
     public class NavigationInteractable : MonoBehaviour
     {

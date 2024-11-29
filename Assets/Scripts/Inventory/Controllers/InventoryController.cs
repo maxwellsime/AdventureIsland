@@ -1,21 +1,21 @@
 using System.Collections.Generic;
-using Inventory;
-using UI;
+using Inventory.Models;
+using Inventory.Views;
 using UnityEngine;
 
-namespace Controllers
+namespace Inventory.Controllers
 {
     public class InventoryController : MonoBehaviour
     {
         [SerializeField] private InventoryView view;
         [SerializeField] public List<ItemScriptableObject> startingItems = new();
-        public Systems.Inventory.InventoryModel InventoryModel;
+        public InventoryModel InventoryModel;
         
         // MULTIPLE ITEMS ADDED BECAUSE EACH ITEM IS STORED IN A PREFAB THAT HAS PERSISTENT DATA BETWEEN EACH PLAY
 
         private void OnEnable()
         {
-            InventoryModel = new Systems.Inventory.InventoryModel(startingItems);
+            InventoryModel = new InventoryModel(startingItems);
             view.InitializeView();
             view.OnDrop += OnDropEvent;
             InventoryModel.InventoryChange += OnInventoryChange;
