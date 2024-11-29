@@ -15,12 +15,12 @@ namespace UI
         private VisualElement _container;
         private static VisualElement _inventoryDragIcon;
 
-        private static bool _beingDragged;
-        private static InventorySlot _originalSlot;
+        private static bool _draggingItem;
+        private static InventorySlot _interactingSlot;
         
         public event Action<InventorySlot, InventorySlot> OnDrop;
 
-        public void InitializeView(int size = 20)
+        public void InitializeView(int size = 30)
         {
             Slots = new InventorySlot[size];
             Debug.Log($"Slots initialized as {Slots.Length}");
@@ -47,20 +47,18 @@ namespace UI
         private static void OnPointerDown(Vector2 position, InventorySlot slot)
         {
             Debug.Log("OnPointerDown called");
-            _beingDragged = true;
-            _originalSlot = slot;
+            _draggingItem = true;
+            _interactingSlot = slot;
             
             SetDragIconPosition(position);
-            _inventoryDragIcon.style.backgroundImage = _originalSlot.Item.icon.texture;
-            _originalSlot.Icon.image = null;
-            _originalSlot.AmountLabel.visible = false;
+            _inventoryDragIcon.style.backgroundImage = _interactingSlot.ItemTexture;
             _inventoryDragIcon.style.visibility = Visibility.Visible;
+            _interactingSlot.SwapItemVisibility();
         }
 
         private static void OnPointerMove(PointerMoveEvent evt)
         {
-            Debug.Log("OnPointerMove called");
-            if (!_beingDragged) return;
+            if (!_draggingItem) return;
             
             SetDragIconPosition(evt.position);
         }
@@ -68,7 +66,7 @@ namespace UI
         private void OnPointerUp(PointerUpEvent evt)
         {
             Debug.Log("OnPointerUp called");
-            if(!_beingDragged) return;
+            if(!_draggingItem) return;
             
             var closestSlot = Slots
                 .Where(slot => slot.worldBound.Overlaps(_inventoryDragIcon.worldBound))
@@ -77,15 +75,15 @@ namespace UI
 
             if (closestSlot != null)
             {
-                OnDrop?.Invoke(_originalSlot, closestSlot);
+                OnDrop?.Invoke(_interactingSlot, closestSlot);
             }
             else
             {
-                _originalSlot.Icon.image = _originalSlot.Item.icon.texture;
+                _interactingSlot.SwapItemVisibility();
             }
             
-            _beingDragged = false;
-            _originalSlot = null;
+            _draggingItem = false;
+            _interactingSlot = null;
             _inventoryDragIcon.style.visibility = Visibility.Hidden;
         }
         

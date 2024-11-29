@@ -15,7 +15,7 @@ namespace Inventory
 
         private void OnMouseDown()
         {
-            _inventoryController._inventory.AddItem(itemScriptableObject);
+            _inventoryController.InventoryModel.AddItem(itemScriptableObject);
         }
     }
 }

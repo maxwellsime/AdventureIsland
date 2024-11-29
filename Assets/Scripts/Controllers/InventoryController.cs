@@ -1,6 +1,4 @@
-using System;
-using System.Collections;
-using System.Linq;
+using System.Collections.Generic;
 using Inventory;
 using UI;
 using UnityEngine;
@@ -9,33 +7,36 @@ namespace Controllers
 {
     public class InventoryController : MonoBehaviour
     {
-        [SerializeField] private InventoryView _view;
-        [SerializeField] public Systems.Inventory.Inventory _inventory;
+        [SerializeField] private InventoryView view;
+        [SerializeField] public List<ItemScriptableObject> startingItems = new();
+        public Systems.Inventory.InventoryModel InventoryModel;
         
         // MULTIPLE ITEMS ADDED BECAUSE EACH ITEM IS STORED IN A PREFAB THAT HAS PERSISTENT DATA BETWEEN EACH PLAY
-        
+
         private void OnEnable()
         {
-            _inventory.InventoryChange += RefreshView();
-            _view.InitializeView();
-            _view.OnDrop += OnDropEvent;
+            InventoryModel = new Systems.Inventory.InventoryModel(startingItems);
+            view.InitializeView();
+            view.OnDrop += OnDropEvent;
+            InventoryModel.InventoryChange += OnInventoryChange;
             RefreshView();
         }
-
-        private Action RefreshView()
-        {
-            for (var i = 0; i < _inventory.items.Count; i++)
-            {
-                _view.Slots[i].Set(i, _inventory.items[i]);
-            }
-
-            return () => { };
-        }
+        
+        private void OnInventoryChange() => RefreshView();
 
         private void OnDropEvent(InventorySlot originalSlot, InventorySlot closestSlot)
         {
-            _inventory.Swap(originalSlot.Index, closestSlot.Index);
-            RefreshView();
+            InventoryModel.Swap(originalSlot.Index, closestSlot.Index);
+        }
+        
+        private void RefreshView()
+        {
+            Debug.Log("RefreshView");
+            for (var i = 0; i < InventoryModel.Items.Length; i++)
+            {
+                if (InventoryModel.Items[i] == null) continue;
+                view.Slots[i].Set(i, InventoryModel.Items[i].icon.texture, InventoryModel.Items[i].quantity);
+            }
         }
     }
 }

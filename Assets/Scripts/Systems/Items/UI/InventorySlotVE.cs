@@ -1,5 +1,4 @@
 using System;
-using Inventory;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
@@ -8,41 +7,50 @@ namespace UI
 {
     public class InventorySlot : VisualElement
     {
-        public int Index;
-        public ItemScriptableObject Item; // use for tooltip parameter
-        public Image Icon;
-        public Label AmountLabel;
+        public int Index => parent.IndexOf(this);
+        public int ItemQuantity;
+        public Texture2D ItemTexture;
+        public int ItemId { get; private set; }
+        private readonly Image _icon;
+        private readonly Label _amountLabel;
 
         public event Action<Vector2, InventorySlot> OnStartDrag = delegate { };
         
         public InventorySlot()
         {
-            Icon = this.CreateChild<Image>("InventorySlotImage");
-            AmountLabel = this.CreateChild<Label>("InventorySlotAmount");
+            _icon = this.CreateChild<Image>("InventorySlotImage");
+            _amountLabel = this.CreateChild<Label>("InventorySlotAmount");
             RegisterCallback<PointerDownEvent>(OnPointerDown);
+        }
+        
+        public void Set(int id, Texture2D icon, int quantity)
+        {
+            ItemId = id;
+            ItemQuantity = quantity;
+            ItemTexture = icon;
+            
+            _icon.image = icon;
+            _amountLabel.text = quantity > 1 ? quantity.ToString() : string.Empty;
         }
 
         private void OnPointerDown(PointerDownEvent evt)
         {
-            if (evt.button != 0 || Item == null) return;
+            if (evt.button != 0 || _icon.image == null) return;
             
             OnStartDrag.Invoke(evt.position, this);
             evt.StopPropagation();
         } 
-
-        public void Set(int index, ItemScriptableObject item)
-        {
-            Index = index;
-            Item = item;
-            Icon.image = item.icon.texture;
-            AmountLabel.text = item.quantity > 1 ? item.quantity.ToString() : string.Empty;
-            AmountLabel.visible = item.quantity > 1;
-        }
-
+        
         public void Remove()
         {
-            Item = null;
-            Icon.sprite = null;
+            _icon.image = null;
+            _amountLabel.text = "";
+        }
+
+        public void SwapItemVisibility()
+        {
+            _icon.image = _icon.image == null ? ItemTexture : null;
+            _amountLabel.visible = _amountLabel.visible == false;
         }
     }
 }

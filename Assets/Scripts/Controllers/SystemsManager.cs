@@ -8,7 +8,6 @@ namespace Controllers
     public class SystemsManager : MonoBehaviour
     {
         [SerializeField] private TimePeriod currentTimePeriod;
-        public readonly Systems.Inventory.Inventory Inventory = new();
         private readonly Dictionary<string, Vector3> _locationPositionDictionary = new(); // WILL NEED TO BE RECALCULATED UPON NEW AREA DISCOVERED
     
 
