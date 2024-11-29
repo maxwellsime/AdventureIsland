@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
-    <Style src="project://database/Assets/Scripts/UI/UIStyling.uss?fileID=7433441132597879392&amp;guid=5ebb661abc81cb148b05db25a61b6d2e&amp;type=3#UIStyling" />
+    <Style src="project://database/Assets/Scripts/Overworld/Views/UIStyling.uss?fileID=7433441132597879392&amp;guid=5ebb661abc81cb148b05db25a61b6d2e&amp;type=3#UIStyling" />
     <ui:VisualElement name="NovelUI" style="flex-grow: 1; width: 100%; height: 100%;">
         <ui:VisualElement name="UpperRow" style="flex-grow: 1; height: 60%; width: 100%;">
             <ui:VisualElement name="TimeDialRow" style="flex-grow: 1; height: 15%; width: 100%; position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
