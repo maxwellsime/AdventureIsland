@@ -18,12 +18,12 @@ namespace Inventory.Controllers
             InventoryModel = new InventoryModel(startingItems);
             view.InitializeView();
             view.OnDrop += OnDropEvent;
-            InventoryModel.InventoryChange += OnInventoryChange;
+            InventoryModel.InventoryChange += RefreshView;
             RefreshView();
+            
+            DontDestroyOnLoad(this);
         }
         
-        private void OnInventoryChange() => RefreshView();
-
         private void OnDropEvent(InventorySlot originalSlot, InventorySlot closestSlot)
         {
             InventoryModel.Swap(originalSlot.Index, closestSlot.Index);

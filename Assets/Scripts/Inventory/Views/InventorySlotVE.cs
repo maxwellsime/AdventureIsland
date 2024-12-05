@@ -47,7 +47,7 @@ namespace Inventory.Views
             _amountLabel.text = "";
         }
 
-        public void SwapItemVisibility()
+        public void ToggleItemVisibility()
         {
             _icon.image = _icon.image == null ? ItemTexture : null;
             _amountLabel.visible = _amountLabel.visible == false;
