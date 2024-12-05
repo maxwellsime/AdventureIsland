@@ -53,7 +53,7 @@ namespace Inventory.Views
             SetDragIconPosition(position);
             _inventoryDragIcon.style.backgroundImage = _interactingSlot.ItemTexture;
             _inventoryDragIcon.style.visibility = Visibility.Visible;
-            _interactingSlot.SwapItemVisibility();
+            _interactingSlot.ToggleItemVisibility();
         }
 
         private static void OnPointerMove(PointerMoveEvent evt)
@@ -79,7 +79,7 @@ namespace Inventory.Views
             }
             else
             {
-                _interactingSlot.SwapItemVisibility();
+                _interactingSlot.ToggleItemVisibility();
             }
             
             _draggingItem = false;
