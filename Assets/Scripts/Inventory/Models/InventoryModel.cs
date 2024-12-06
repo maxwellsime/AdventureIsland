@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Inventory.Models
@@ -18,6 +19,8 @@ namespace Inventory.Models
             {
                 AddItem(item);
             }
+
+            ItemGameObject.OnClick += AddItemFromGameObject;
         }
         
         public bool AddItem(ItemScriptableObject item, int quantity = 1)
@@ -77,5 +80,7 @@ namespace Inventory.Models
             InventoryChange?.Invoke();
             return true;
         }
+        
+        private void AddItemFromGameObject(ItemScriptableObject item, int quantity) => AddItem(item, quantity);
     }
 }

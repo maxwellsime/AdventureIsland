@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace Overworld
+namespace Overworld.Models
 {
-    public class LocationManager : MonoBehaviour
+    public class LocationGameObject : MonoBehaviour
     {
-        [SerializeField] 
-        private Sprite backgroundSprite;
+        [SerializeField] private Sprite backgroundSprite;
+        public bool discovered;
     
         private void Start()
         {
