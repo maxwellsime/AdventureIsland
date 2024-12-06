@@ -18,22 +18,23 @@ namespace Overworld.Services
         {
             var newTimePeriodInt = (int)_currentTimePeriod + 1;
             _currentTimePeriod = newTimePeriodInt > 3 ? TimePeriod.Morning : (TimePeriod)newTimePeriodInt;
+            UpdateTimePeriodScene();
         }
         
         private void UpdateTimePeriodScene()
         {
             switch((int)_currentTimePeriod)
             {
-                case 0: 
+                case 0:
                     TimePeriodForwarded.Invoke("OverworldMorning");
                     break;
-                case 1: 
+                case 1:
                     //TimePeriodForwarded.Invoke("OverworldMidday");
                     break;            
-                case 2: 
+                case 2:
                     TimePeriodForwarded.Invoke("OverworldNight"); // OverworldAfternoon
                     break;
-                case 3: 
+                case 3:
                     //TimePeriodForwarded.Invoke("OverworldNight");
                     break;
             }   

@@ -3,7 +3,7 @@
     <ui:VisualElement name="NovelUI" style="flex-grow: 1; width: 100%; height: 100%;">
         <ui:VisualElement name="UpperRow" style="flex-grow: 1; height: 60%; width: 100%;">
             <ui:VisualElement name="TimeDialRow" style="flex-grow: 1; height: 15%; width: 100%; position: absolute; left: 0; top: 0; right: 0; bottom: 0;">
-                <ui:VisualElement name="TimeDial" style="flex-grow: 1; width: 5%; height: 100%; position: relative; top: auto; left: auto; align-items: center; align-self: center; background-image: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=8228938214290033325&amp;guid=06e4e154ae4eb194f911d026cc6ec405&amp;type=3#console.erroricon&quot;);" />
+                <ui:Button name="TimeDial" class="InvisibleButton" style="background-size: 100% 100%; position: absolute; left: 50%; right: 50%; top: 0; bottom: auto; background-image: url(&quot;project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=8228938214290033325&amp;guid=06e4e154ae4eb194f911d026cc6ec405&amp;type=3#console.erroricon&quot;); width: 5%; height: 100%;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="LowerRow" style="flex-grow: 1; align-items: center; justify-content: center; align-self: center; height: 40%; width: 80%; opacity: 1; -unity-background-image-tint-color: rgb(255, 0, 0); background-color: rgba(255, 0, 0, 0); flex-wrap: nowrap; flex-direction: column; overflow: visible; visibility: visible; padding-bottom: 0;">

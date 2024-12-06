@@ -9,7 +9,7 @@ namespace Inventory.Views
     public class InventoryView : MonoBehaviour
     {
         public InventorySlot[] Slots;
-        [SerializeField] protected UIDocument document;
+        [SerializeField] private UIDocument document;
         
         private VisualElement _root;
         private VisualElement _container;
