@@ -1,22 +1,26 @@
-using Overworld.Models;
+using Overworld.Controllers;
 using Overworld.Services;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class OverworldController : MonoBehaviour
+public class OverworldController
 {
-    private TimePeriodService timePeriodService;
-    private LocationsService locationsService;
-
-    private void OnEnable()
-    {
-        timePeriodService = new TimePeriodService(TimePeriod.Morning);
-        timePeriodService.TimePeriodForwarded += UpdateSceneWithTimePeriod;
+    private static TimePeriodService _timePeriodService;
+    private LocationsService _locationsService;
+    private ButtonView _buttonView;
+    
+    public OverworldController(
+        LocationsService locationsService,
+        TimePeriodService timePeriodService,
+        ButtonView buttonView
+    ){
+        _timePeriodService = timePeriodService;
+        _locationsService = locationsService;
+        _buttonView = buttonView;
         
-        locationsService = new LocationsService();
-        
-        DontDestroyOnLoad(this);
+        _timePeriodService.TimePeriodForwarded += UpdateSceneWithTimePeriod;
     }
 
     private static void UpdateSceneWithTimePeriod(string sceneName) => SceneManager.LoadScene(sceneName);
+    
+    public static void ProgressTimePeriod() => _timePeriodService.ForwardTimePeriod();
 }

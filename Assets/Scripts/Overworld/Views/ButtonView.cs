@@ -3,33 +3,32 @@ using UnityEngine.UIElements;
 
 namespace Overworld.Controllers
 {
-    public class ButtonView : MonoBehaviour
+    public class ButtonView
     {
-        public UIDocument document;
-        private VisualElement _root;
-
-        private void Awake()
+        private readonly VisualElement _root;
+        
+        public ButtonView(UIDocument document)
         {
-            document = GetComponent<UIDocument>();
             _root = document.rootVisualElement;
+            var timeDial = _root.Q<Button>("TimeDial");
+
+            timeDial.clicked += OverworldController.ProgressTimePeriod;
             
+            ButtonRowSetup();
+        }
+
+        private void ButtonRowSetup()
+        {
             var buttonRowChildren = _root.Q("ButtonRow").Children();
 
             foreach (var buttonCol in buttonRowChildren)
             {
-                SetupButtonEvent(buttonCol);
-            }
-
-            //_timePeriodButton.clicked += delegate { };
-        }
-
-        private void SetupButtonEvent(VisualElement buttonCol)
-        {
-            var button = buttonCol.Q<Button>();
-            var pairName = button.name.Replace("Button", "");
-            var element = _root.Q<VisualElement>($"{pairName}Box");
+                var button = buttonCol.Q<Button>();
+                var pairName = button.name.Replace("Button", "");
+                var element = _root.Q<VisualElement>($"{pairName}Box");
             
-            button.clicked += delegate { OnButtonToggle(element); };
+                button.clicked += delegate { OnButtonToggle(element); };
+            }
         }
         
         private static void OnButtonToggle(VisualElement uiElement) => 
