@@ -9,33 +9,34 @@ namespace Inventory.Controllers
     {
         [SerializeField] private InventoryView view;
         [SerializeField] public List<ItemScriptableObject> startingItems = new();
-        public InventoryModel InventoryModel;
+        private InventoryModel _inventoryModel;
         
         // MULTIPLE ITEMS ADDED BECAUSE EACH ITEM IS STORED IN A PREFAB THAT HAS PERSISTENT DATA BETWEEN EACH PLAY
 
         private void OnEnable()
         {
-            InventoryModel = new InventoryModel(startingItems);
+            _inventoryModel = new InventoryModel(startingItems);
             view.InitializeView();
-            view.OnDrop += OnDropEvent;
-            InventoryModel.InventoryChange += RefreshView;
-            RefreshView();
             
+            view.OnDrop += OnDropEvent;
+            _inventoryModel.InventoryChange += RefreshView;
+            
+            RefreshView();
             DontDestroyOnLoad(this);
         }
         
         private void OnDropEvent(InventorySlot originalSlot, InventorySlot closestSlot)
         {
-            InventoryModel.Swap(originalSlot.Index, closestSlot.Index);
+            _inventoryModel.Swap(originalSlot.Index, closestSlot.Index);
         }
         
         private void RefreshView()
         {
             Debug.Log("RefreshView");
-            for (var i = 0; i < InventoryModel.Items.Length; i++)
+            for (var i = 0; i < _inventoryModel.Items.Length; i++)
             {
-                if (InventoryModel.Items[i] == null) continue;
-                view.Slots[i].Set(i, InventoryModel.Items[i].icon.texture, InventoryModel.Items[i].quantity);
+                if (_inventoryModel.Items[i] == null) continue;
+                view.Slots[i].Set(i, _inventoryModel.Items[i].icon.texture, _inventoryModel.Items[i].quantity);
             }
         }
     }

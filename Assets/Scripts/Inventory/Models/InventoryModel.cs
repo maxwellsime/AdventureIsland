@@ -25,25 +25,29 @@ namespace Inventory.Models
         
         public bool AddItem(ItemScriptableObject item, int quantity = 1)
         {
+            var firstEmptyIndex = -1;
+            
             for (var i = 0; i < Items.Length; i++)
             {
                 if (Items[i] != null)
                 {
-                    if (Items[i].id == item.id)
-                    {
-                        Items[i].quantity += quantity;
-                        Debug.Log($"Item {item.name} added to Inventory with quantity {Items[i].quantity}.");
-                        return SuccessfulChangeInvoke();
-                    }
-                    continue;
+                    if (Items[i].id != item.id) continue;
+                    
+                    Items[i].quantity += item.quantity;
+                    Debug.Log($"{item.quantity} {item.name} added to Inventory with quantity {Items[i].quantity}.");
+                    return SuccessfulChangeInvoke();
+                } 
+                if(firstEmptyIndex == -1)
+                {
+                    firstEmptyIndex = i;
                 }
-
-                Items[i] = item;
-                Debug.Log($"Item {item.name} added to Inventory.");
-                return SuccessfulChangeInvoke();
             }
 
-            return false;
+            if (firstEmptyIndex == -1) return false;
+            
+            Items[firstEmptyIndex] = item;
+            Debug.Log($"{item.quantity} {item.name} added to Inventory.");
+            return SuccessfulChangeInvoke();
         }
 
         public bool RemoveItem(ItemScriptableObject item, int quantity = 1)
@@ -70,8 +74,7 @@ namespace Inventory.Models
             (Items[indexOne], Items[indexTwo]) = (Items[indexTwo], Items[indexOne]);
             InventoryChange?.Invoke();
         }
-            
-
+        
         public bool HasItem(ItemScriptableObject item) => 
             Items.FirstOrDefault(i => i.id == item.id) != null;
         
