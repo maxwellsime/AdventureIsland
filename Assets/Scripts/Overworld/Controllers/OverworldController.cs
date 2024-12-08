@@ -1,5 +1,5 @@
-using Overworld.Controllers;
 using Overworld.Services;
+using Overworld.Views;
 using UnityEngine.SceneManagement;
 
 public class OverworldController

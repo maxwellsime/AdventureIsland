@@ -1,6 +1,6 @@
 using UnityEngine.UIElements;
 
-namespace Overworld.Controllers
+namespace Overworld.Views
 {
     public class ButtonView
     {
