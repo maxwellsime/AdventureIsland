@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Inventory.Models
 {
     public class InventoryModel : IItemContainer
     {
-        public readonly ItemScriptableObject[] Items;
+        public ItemScriptableObject[] Items;
 
         public event Action InventoryChange = delegate { };
 
@@ -20,10 +19,10 @@ namespace Inventory.Models
                 AddItem(item);
             }
 
-            ItemGameObject.OnClick += AddItemFromGameObject;
+            ItemGameObject.OnClick += AddItem;
         }
         
-        public bool AddItem(ItemScriptableObject item, int quantity = 1)
+        public void AddItem(ItemScriptableObject item, int quantity = 1)
         {
             var firstEmptyIndex = -1;
             
@@ -33,9 +32,9 @@ namespace Inventory.Models
                 {
                     if (Items[i].id != item.id) continue;
                     
-                    Items[i].quantity += item.quantity;
+                    Items[i].quantity += quantity;
                     Debug.Log($"{item.quantity} {item.name} added to Inventory with quantity {Items[i].quantity}.");
-                    return SuccessfulChangeInvoke();
+                    SuccessfulChangeInvoke();
                 } 
                 if(firstEmptyIndex == -1)
                 {
@@ -43,11 +42,15 @@ namespace Inventory.Models
                 }
             }
 
-            if (firstEmptyIndex == -1) return false;
+            if (firstEmptyIndex == -1)
+            {
+                Array.Resize(ref Items, Items.Length + 5);
+                firstEmptyIndex = Items.Length + 1;
+            }
             
             Items[firstEmptyIndex] = item;
             Debug.Log($"{item.quantity} {item.name} added to Inventory.");
-            return SuccessfulChangeInvoke();
+            SuccessfulChangeInvoke();
         }
 
         public bool RemoveItem(ItemScriptableObject item, int quantity = 1)
@@ -83,7 +86,5 @@ namespace Inventory.Models
             InventoryChange?.Invoke();
             return true;
         }
-        
-        private void AddItemFromGameObject(ItemScriptableObject item, int quantity) => AddItem(item, quantity);
     }
 }
