@@ -15,9 +15,8 @@ namespace Overworld
         private void OnEnable()
         {
             _overworldController = new OverworldController(
-                new LocationsService(),
-                new TimePeriodService(TimePeriod.Morning),
-                new ButtonView(overworldUIDocument)
+                overworldUIDocument,
+                TimePeriod.Morning // Should be instantiated as part of sa  ve data
             );
             
             DontDestroyOnLoad(this);

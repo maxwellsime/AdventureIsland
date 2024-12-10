@@ -1,21 +1,22 @@
+using Overworld.Models;
 using Overworld.Services;
 using Overworld.Views;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class OverworldController
 {
     private static TimePeriodService _timePeriodService;
     private LocationsService _locationsService;
-    private ButtonView _buttonView;
     
     public OverworldController(
-        LocationsService locationsService,
-        TimePeriodService timePeriodService,
-        ButtonView buttonView
+        UIDocument uiDocument,
+        TimePeriod timePeriod
     ){
-        _timePeriodService = timePeriodService;
-        _locationsService = locationsService;
-        _buttonView = buttonView;
+        ButtonView.InitializeView(uiDocument);
+
+        _timePeriodService = new TimePeriodService(timePeriod);
+        _locationsService = new LocationsService();
         
         _timePeriodService.TimePeriodForwarded += UpdateSceneWithTimePeriod;
     }
