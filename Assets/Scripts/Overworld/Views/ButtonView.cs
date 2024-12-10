@@ -7,7 +7,7 @@ namespace Overworld.Views
     public static class ButtonView
     {
         private static VisualElement _root;
-        private static List<VisualElement> _buttonRowElements = new();
+        private static readonly List<VisualElement> ButtonRowElements = new();
         
         public static void InitializeView(UIDocument document)
         {
@@ -28,7 +28,7 @@ namespace Overworld.Views
                 var button = buttonCol.Q<Button>();
                 var pairName = button.name.Replace("Button", "");
                 var element = _root.Q<VisualElement>($"{pairName}Box");
-                _buttonRowElements.Add(element);
+                ButtonRowElements.Add(element);
                 
                 button.clicked += delegate { OnButtonClick(element); };
             }
@@ -36,7 +36,7 @@ namespace Overworld.Views
 
         private static void OnButtonClick(VisualElement clickedButtonElement)
         {
-            foreach (var element in _buttonRowElements.Where(element => clickedButtonElement != element))
+            foreach (var element in ButtonRowElements.Where(element => clickedButtonElement != element))
             {
                 element.style.display = DisplayStyle.None;
             }
