@@ -11,8 +11,6 @@ namespace Inventory.Controllers
         [SerializeField] public List<ItemScriptableObject> startingItems = new();
         private InventoryModel _inventoryModel;
         
-        // MULTIPLE ITEMS ADDED BECAUSE EACH ITEM IS STORED IN A PREFAB THAT HAS PERSISTENT DATA BETWEEN EACH PLAY
-
         private void OnEnable()
         {
             _inventoryModel = new InventoryModel(startingItems);

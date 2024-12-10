@@ -23,7 +23,6 @@ namespace Inventory.Views
         public void InitializeView(int size = 30)
         {
             Slots = new InventorySlot[size];
-            Debug.Log($"Slots initialized as {Slots.Length}");
             _root = document.rootVisualElement;
             _container = _root.Q("InventoryBox");
 

@@ -8,9 +8,9 @@ namespace Inventory.Views
     public class InventorySlot : VisualElement
     {
         public int Index => parent.IndexOf(this);
-        public int ItemQuantity;
-        public Texture2D ItemTexture;
         public int ItemId { get; private set; }
+        public Texture2D ItemTexture;
+        private string _itemQuantity;
         private readonly Image _icon;
         private readonly Label _amountLabel;
 
@@ -26,11 +26,11 @@ namespace Inventory.Views
         public void Set(int id, Texture2D icon, int quantity)
         {
             ItemId = id;
-            ItemQuantity = quantity;
+            _itemQuantity = quantity.ToString();
             ItemTexture = icon;
             
             _icon.image = icon;
-            _amountLabel.text = quantity > 1 ? quantity.ToString() : string.Empty;
+            _amountLabel.text = quantity > 1 ? _itemQuantity : string.Empty;
         }
 
         private void OnPointerDown(PointerDownEvent evt)
@@ -44,13 +44,13 @@ namespace Inventory.Views
         public void Remove()
         {
             _icon.image = null;
-            _amountLabel.text = "";
+            _amountLabel.text = string.Empty;
         }
 
         public void ToggleItemVisibility()
         {
             _icon.image = _icon.image == null ? ItemTexture : null;
-            _amountLabel.visible = _amountLabel.visible == false;
+            _amountLabel.text = _amountLabel.text == string.Empty ? _itemQuantity : string.Empty;
         }
     }
 }
