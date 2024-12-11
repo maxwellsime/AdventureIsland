@@ -8,12 +8,13 @@ public class OverworldController
 {
     private static TimePeriodService _timePeriodService;
     private LocationsService _locationsService;
-    
+
     public OverworldController(
         UIDocument uiDocument,
         TimePeriod timePeriod
     ){
-        ButtonView.InitializeView(uiDocument);
+        var buttonView = new ButtonView();
+        buttonView.InitializeView(uiDocument);
 
         _timePeriodService = new TimePeriodService(timePeriod);
         _locationsService = new LocationsService();

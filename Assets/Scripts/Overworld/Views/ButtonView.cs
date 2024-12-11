@@ -4,12 +4,12 @@ using UnityEngine.UIElements;
 
 namespace Overworld.Views
 {
-    public static class ButtonView
+    public class ButtonView
     {
-        private static VisualElement _root;
-        private static readonly List<VisualElement> ButtonRowElements = new();
+        private VisualElement _root;
+        private readonly List<VisualElement> _buttonRowElements = new();
         
-        public static void InitializeView(UIDocument document)
+        public void InitializeView(UIDocument document)
         {
             _root = document.rootVisualElement;
             var timeDial = _root.Q<Button>("TimeDial");
@@ -19,7 +19,7 @@ namespace Overworld.Views
             ButtonRowSetup();
         }
 
-        private static void ButtonRowSetup()
+        private void ButtonRowSetup()
         {
             var buttonRowChildren = _root.Q("ButtonRow").Children();
 
@@ -28,15 +28,15 @@ namespace Overworld.Views
                 var button = buttonCol.Q<Button>();
                 var pairName = button.name.Replace("Button", "");
                 var element = _root.Q<VisualElement>($"{pairName}Box");
-                ButtonRowElements.Add(element);
+                _buttonRowElements.Add(element);
                 
                 button.clicked += delegate { OnButtonClick(element); };
             }
         }
 
-        private static void OnButtonClick(VisualElement clickedButtonElement)
+        private void OnButtonClick(VisualElement clickedButtonElement)
         {
-            foreach (var element in ButtonRowElements.Where(element => clickedButtonElement != element))
+            foreach (var element in _buttonRowElements.Where(element => clickedButtonElement != element))
             {
                 element.style.display = DisplayStyle.None;
             }
