@@ -1,17 +1,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Inventory.Models;
 using UnityEngine;
 
-namespace Inventory.Models
+namespace Inventory.Services
 {
-    public class InventoryModel : IItemContainer
+    public class InventoryService : IItemContainer
     {
         public ItemScriptableObject[] Items;
 
         public event Action InventoryChange = delegate { };
 
-        public InventoryModel(List<ItemScriptableObject> startingItems, int size = 30)
+        public InventoryService(List<ItemScriptableObject> startingItems, int size = 30)
         {
             Items = new ItemScriptableObject[size];
             foreach (var item in startingItems)

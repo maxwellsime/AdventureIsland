@@ -1,40 +1,51 @@
-using System.Collections.Generic;
-using Inventory.Models;
+using System.Collections;
+using Inventory.Services;
 using Inventory.Views;
 using UnityEngine;
 
 namespace Inventory.Controllers
 {
-    public class InventoryController : MonoBehaviour
+    public class InventoryController
     {
-        [SerializeField] private InventoryView view;
-        [SerializeField] public List<ItemScriptableObject> startingItems = new();
-        private InventoryModel _inventoryModel;
-        
-        private void OnEnable()
+        private readonly InventoryView _inventoryView;
+        private readonly InventoryService _inventoryService;
+
+        public InventoryController(
+            MonoBehaviour inventory,
+            InventoryView inventoryView,
+            InventoryService inventoryService) 
         {
-            _inventoryModel = new InventoryModel(startingItems);
-            view.InitializeView();
+            _inventoryView = inventoryView;
+            _inventoryService = inventoryService;
+
+            inventory.StartCoroutine(Initialize());
+        }
+
+        private IEnumerator Initialize()
+        {
+            yield return _inventoryView.InitializeView();
             
-            view.OnDrop += OnDropEvent;
-            _inventoryModel.InventoryChange += RefreshView;
+            _inventoryView.OnDrop += OnDropEvent;
+            _inventoryService.InventoryChange += RefreshView;
             
             RefreshView();
-            DontDestroyOnLoad(this);
         }
         
         private void OnDropEvent(InventorySlot originalSlot, InventorySlot closestSlot)
         {
-            _inventoryModel.Swap(originalSlot.Index, closestSlot.Index);
+            _inventoryService.Swap(originalSlot.Index, closestSlot.Index);
         }
         
         private void RefreshView()
         {
-            Debug.Log("RefreshView");
-            for (var i = 0; i < _inventoryModel.Items.Length; i++)
+            Debug.Log("Refresh inventory view.");
+            for (var i = 0; i < _inventoryService.Items.Length; i++)
             {
-                if (_inventoryModel.Items[i] == null) continue;
-                view.Slots[i].Set(i, _inventoryModel.Items[i].icon.texture, _inventoryModel.Items[i].quantity);
+                if (_inventoryService.Items[i] is null) continue;
+                _inventoryView.Slots[i].Set(
+                    i, _inventoryService.Items[i].icon.texture,
+                    _inventoryService.Items[i].quantity
+                    );
             }
         }
     }

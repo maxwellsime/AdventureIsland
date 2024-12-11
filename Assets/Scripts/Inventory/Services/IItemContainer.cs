@@ -1,4 +1,6 @@
-namespace Inventory.Models
+using Inventory.Models;
+
+namespace Inventory.Services
 {
     internal interface IItemContainer {
         void AddItem(ItemScriptableObject item, int quantity);

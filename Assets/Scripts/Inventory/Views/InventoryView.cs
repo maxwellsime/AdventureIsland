@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -6,24 +7,25 @@ using Utilities;
 
 namespace Inventory.Views
 {
-    public class InventoryView : MonoBehaviour
+    public class InventoryView
     {
         public InventorySlot[] Slots;
-        [SerializeField] private UIDocument document;
-        
-        private VisualElement _root;
         private VisualElement _container;
         private static VisualElement _inventoryDragIcon;
-
         private static bool _draggingItem;
         private static InventorySlot _interactingSlot;
+        private readonly VisualElement _root;
         
         public event Action<InventorySlot, InventorySlot> OnDrop;
 
-        public void InitializeView(int size = 30)
+        public InventoryView(UIDocument uiDocument)
+        {
+            _root = uiDocument.rootVisualElement;
+        }
+
+        public IEnumerator InitializeView(int size = 30)
         {
             Slots = new InventorySlot[size];
-            _root = document.rootVisualElement;
             _container = _root.Q("InventoryBox");
 
             for (var i = 0; i < size; i++)
@@ -41,11 +43,12 @@ namespace Inventory.Views
             {
                 slot.OnStartDrag += OnPointerDown;
             }
+
+            yield return null;
         }
 
         private static void OnPointerDown(Vector2 position, InventorySlot slot)
         {
-            Debug.Log("OnPointerDown called");
             _draggingItem = true;
             _interactingSlot = slot;
             
@@ -64,7 +67,6 @@ namespace Inventory.Views
 
         private void OnPointerUp(PointerUpEvent evt)
         {
-            Debug.Log("OnPointerUp called");
             if(!_draggingItem) return;
             
             var closestSlot = Slots
