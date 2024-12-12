@@ -20,7 +20,7 @@ namespace Inventory.Controllers
 
         public IEnumerator Initialize()
         {
-            yield return _inventoryView.InitializeView();
+            yield return _inventoryView.Initialize();
             
             _inventoryView.OnDrop += OnDropEvent;
             _inventoryService.InventoryChange += RefreshView;

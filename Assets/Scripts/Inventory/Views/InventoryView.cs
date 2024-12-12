@@ -23,7 +23,7 @@ namespace Inventory.Views
             _root = uiDocument.rootVisualElement;
         }
 
-        public IEnumerator InitializeView(int size = 30)
+        public IEnumerator Initialize(int size = 30)
         {
             Slots = new InventorySlot[size];
             _container = _root.Q("InventoryBox");

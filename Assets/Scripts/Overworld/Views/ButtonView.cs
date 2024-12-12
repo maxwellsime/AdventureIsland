@@ -1,22 +1,31 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Overworld.Controllers;
 using UnityEngine.UIElements;
 
 namespace Overworld.Views
 {
     public class ButtonView
     {
-        private VisualElement _root;
-        private readonly List<VisualElement> _buttonRowElements = new();
-        
-        public void InitializeView(UIDocument document)
+        private readonly VisualElement _root;
+        private readonly List<VisualElement> _buttonRowElements;
+
+        public ButtonView(UIDocument uiDocument)
         {
-            _root = document.rootVisualElement;
+            _root = uiDocument.rootVisualElement;
+            _buttonRowElements = new List<VisualElement>();
+        }
+        
+        public IEnumerator Initialize()
+        {
             var timeDial = _root.Q<Button>("TimeDial");
 
             timeDial.clicked += OverworldController.ProgressTimePeriod;
             
             ButtonRowSetup();
+
+            yield return null;
         }
 
         private void ButtonRowSetup()

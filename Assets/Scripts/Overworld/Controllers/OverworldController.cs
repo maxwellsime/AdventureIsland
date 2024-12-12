@@ -1,28 +1,35 @@
-using Overworld.Models;
+using System.Collections;
 using Overworld.Services;
 using Overworld.Views;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
-public class OverworldController
+namespace Overworld.Controllers
 {
-    private static TimePeriodService _timePeriodService;
-    private LocationsService _locationsService;
+    public class OverworldController
+    {
+        private LocationsService _locationsService;
+        private static TimePeriodService _timePeriodService;
+        private readonly ButtonView _buttonView;
 
-    public OverworldController(
-        UIDocument uiDocument,
-        TimePeriod timePeriod
-    ){
-        var buttonView = new ButtonView();
-        buttonView.InitializeView(uiDocument);
+        public OverworldController(
+            ButtonView buttonView,
+            LocationsService locationsService,
+            TimePeriodService timePeriodService
+        ){
+            _buttonView = buttonView;
+            _locationsService = locationsService;
+            _timePeriodService = timePeriodService;
+        }
 
-        _timePeriodService = new TimePeriodService(timePeriod);
-        _locationsService = new LocationsService();
+        public IEnumerator Initialize()
+        {
+            yield return _buttonView.Initialize();
         
-        _timePeriodService.TimePeriodForwarded += UpdateSceneWithTimePeriod;
-    }
+            _timePeriodService.TimePeriodForwarded += UpdateSceneWithTimePeriod;
+        }
 
-    private static void UpdateSceneWithTimePeriod(string sceneName) => SceneManager.LoadScene(sceneName);
+        private static void UpdateSceneWithTimePeriod(string sceneName) => SceneManager.LoadScene(sceneName);
     
-    public static void ProgressTimePeriod() => _timePeriodService.ForwardTimePeriod();
+        public static void ProgressTimePeriod() => _timePeriodService.ForwardTimePeriod();
+    }
 }
