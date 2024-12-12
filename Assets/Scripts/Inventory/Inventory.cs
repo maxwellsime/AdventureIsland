@@ -17,7 +17,8 @@ namespace Inventory
         {
             var inventoryView = new InventoryView(uiDocument);
             var inventoryService = new InventoryService(startingItems);     // save data inventory data
-            var inventoryController = new InventoryController(this, inventoryView, inventoryService);
+            var inventoryController = new InventoryController(inventoryView, inventoryService);
+            StartCoroutine(inventoryController.Initialize());
             
             DontDestroyOnLoad(this);
         }

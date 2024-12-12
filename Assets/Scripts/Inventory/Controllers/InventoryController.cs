@@ -11,17 +11,14 @@ namespace Inventory.Controllers
         private readonly InventoryService _inventoryService;
 
         public InventoryController(
-            MonoBehaviour inventory,
             InventoryView inventoryView,
             InventoryService inventoryService) 
         {
             _inventoryView = inventoryView;
             _inventoryService = inventoryService;
-
-            inventory.StartCoroutine(Initialize());
         }
 
-        private IEnumerator Initialize()
+        public IEnumerator Initialize()
         {
             yield return _inventoryView.InitializeView();
             

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Inventory.Services
 {
-    public class InventoryService : IItemContainer
+    public class InventoryService : IItemContainerService
     {
         public ItemScriptableObject[] Items;
 
@@ -27,6 +27,7 @@ namespace Inventory.Services
         {
             var firstEmptyIndex = -1;
             
+            // Checking if item exists already.
             for (var i = 0; i < Items.Length; i++)
             {
                 if (Items[i] != null)
@@ -34,24 +35,28 @@ namespace Inventory.Services
                     if (Items[i].id != item.id) continue;
                     
                     Items[i].quantity += quantity;
-                    Debug.Log($"{item.quantity} {item.name} added to Inventory with quantity {Items[i].quantity}.");
-                    SuccessfulChangeInvoke();
+                    Debug.Log($"{item.quantity} {item.name} added to Inventory with quantity {quantity}.");
+                    InventoryChange?.Invoke();
+                    return;
                 } 
                 if(firstEmptyIndex == -1)
                 {
                     firstEmptyIndex = i;
                 }
             }
-
+            
+            // Array is full.
             if (firstEmptyIndex == -1)
             {
                 Array.Resize(ref Items, Items.Length + 5);
                 firstEmptyIndex = Items.Length + 1;
             }
             
+            // Item doesn't already exist.
+            item.quantity = quantity;
             Items[firstEmptyIndex] = item;
-            Debug.Log($"{item.quantity} {item.name} added to Inventory.");
-            SuccessfulChangeInvoke();
+            Debug.Log($"{quantity} {item.name} added to Inventory.");
+            InventoryChange?.Invoke();
         }
 
         public bool RemoveItem(ItemScriptableObject item, int quantity = 1)
