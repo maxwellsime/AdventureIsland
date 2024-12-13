@@ -24,6 +24,7 @@ namespace Inventory.Controllers
             
             _inventoryView.OnDrop += OnDropEvent;
             _inventoryService.InventoryChange += RefreshView;
+            _inventoryService.InventoryAdd += InventoryView.ItemPopup;
             
             RefreshView();
         }

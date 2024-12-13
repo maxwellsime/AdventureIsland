@@ -100,6 +100,13 @@
     font-size: 18px;
 }
 
+.InventoryItemPopup {
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
 .InventoryDragIcon {
     visibility: hidden;
     position: absolute;

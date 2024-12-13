@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Linq;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
@@ -11,6 +12,7 @@ namespace Inventory.Views
     {
         public InventorySlot[] Slots;
         private VisualElement _container;
+        private static Label _inventoryAddItemPopup;
         private static VisualElement _inventoryDragIcon;
         private static bool _draggingItem;
         private static InventorySlot _interactingSlot;
@@ -33,6 +35,9 @@ namespace Inventory.Views
                 var slot = _container.CreateChild<InventorySlot>("InventorySlot");
                 Slots[i] = slot;
             }
+
+            _inventoryAddItemPopup = _root.CreateChild<Label>("InventoryItemPopup");
+            _inventoryAddItemPopup.BringToFront();
             
             _inventoryDragIcon = _root.CreateChild("InventoryDragIcon");
             _inventoryDragIcon.BringToFront();
@@ -45,6 +50,14 @@ namespace Inventory.Views
             }
 
             yield return null;
+        }
+
+        public static async void ItemPopup(string itemName, int quantity)
+        {
+            _inventoryAddItemPopup.text = $"{quantity} x {itemName} added to inventory.";
+            _inventoryAddItemPopup.style.visibility = Visibility.Visible;
+            await Task.Delay(1000);
+            _inventoryAddItemPopup.style.visibility = Visibility.Hidden;
         }
 
         private static void OnPointerDown(Vector2 position, InventorySlot slot)

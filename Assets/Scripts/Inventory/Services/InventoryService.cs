@@ -11,15 +11,16 @@ namespace Inventory.Services
         public ItemScriptableObject[] Items;
 
         public event Action InventoryChange = delegate { };
+        public event Action<string, int> InventoryAdd = delegate { };
 
         public InventoryService(List<ItemScriptableObject> startingItems, int size = 30)
         {
-            Items = new ItemScriptableObject[size];
-            foreach (var item in startingItems)
-            {
-                AddItem(item);
-            }
+            Items = startingItems == null
+                ? new ItemScriptableObject[size]
+                : startingItems.ToArray();
 
+            if (Items.Length < size) Array.Resize(ref Items, size);
+            
             ItemGameObject.OnClick += AddItem;
         }
         
@@ -36,7 +37,7 @@ namespace Inventory.Services
                     
                     Items[i].quantity += quantity;
                     Debug.Log($"{item.quantity} {item.name} added to Inventory with quantity {quantity}.");
-                    InventoryChange?.Invoke();
+                    InventoryAdd?.Invoke(item.name, quantity);
                     return;
                 } 
                 if(firstEmptyIndex == -1)
@@ -56,7 +57,7 @@ namespace Inventory.Services
             item.quantity = quantity;
             Items[firstEmptyIndex] = item;
             Debug.Log($"{quantity} {item.name} added to Inventory.");
-            InventoryChange?.Invoke();
+            InventoryAdd?.Invoke(item.name, quantity);
         }
 
         public bool RemoveItem(ItemScriptableObject item, int quantity = 1)
