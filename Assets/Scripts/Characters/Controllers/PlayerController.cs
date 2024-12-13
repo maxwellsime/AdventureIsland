@@ -1,3 +1,4 @@
+using System.Collections;
 using Characters.Services;
 using Characters.Views;
 
@@ -5,15 +6,21 @@ namespace Characters.Controllers
 {
     public class PlayerController
     {
-        private PlayerService _playerService;
-        private StatsView _statsView;
+        private readonly PlayerService _playerService;
+        private readonly StatsView _statsView;
 
-        public PlayerController()
+        public PlayerController(StatsView statsView, PlayerService playerService)
         {
-            _playerService = new PlayerService();
-            //_statsView = StatsView();
+            _playerService = playerService;
+            _statsView = statsView;
+        }
 
-            //_statsView.InitializeView();
+        public IEnumerator Initialize()
+        {
+            var playerStats = _playerService.GetPlayerStats();
+            yield return _statsView.Initialize(playerStats);
+
+            _playerService.OnPlayerStatsChanged += _statsView.RefreshPlayerStat;
         }
         
         // Change Stat
