@@ -1,9 +1,9 @@
-
-using UnityEngine.UI;
+using UnityEngine.UIElements;
+using Image = UnityEngine.UI.Image;
 
 namespace Characters.Views
 {
-    public class NPCStatVE
+    public class NPCStatVE : VisualElement
     {
         private Image _portrait;
         private int _affection;

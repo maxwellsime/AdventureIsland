@@ -10,7 +10,8 @@ namespace Dialogue.Models
         public string Speaker = null;
         public Image Image = null;
         public Image Model = null;
-        public List<DialogueNode> Children = null;     // continue parent if null
+        public List<DialogueNode> Children = null;      // continue parent if null
         public int ChildEvent = -1;
+        public int RequiredQuest = -1;                  // Locked or ignored if Quest not -1 and not completed
     }
 }
